@@ -1,0 +1,1 @@
+Frontend of the demo of CPEN442's term project of group "Politically Neutral"
