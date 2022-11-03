@@ -8,11 +8,16 @@ domain_of_passgate_api = "localhost:1234/"
 passgate_api_reqcode_url = "requestcode"
 passgate_api_authtoken= "authtoken1234"
 
+CST_userPhoneNumber = "+15875906624"
+
 auth_header = {'Authorization' : 'Bearer '+passgate_api_authtoken}
 currentUsersAuthMap = {}
 
 def authorize(uname,p):
     return True
+
+def getUserPhoneNumber(uname):
+    return CST_userPhoneNumber
 
 @app.route('/', methods=['GET'])
 def homepage_login():
@@ -24,8 +29,9 @@ def login():
     if(authorize(username,request.form['password'])):
         #result = requests.get(domain_of_passgate_api+passgate_api_reqcode_url, params=passgate_api_authtoken)
         json_answer =  json.loads('{"code":10}')#result.json()
-        code = json_answer['code']
+        code = int(json_answer['code'])
         currentUsersAuthMap.update({username:code})
-        return render_template('2fa.html',numbers=code)
+        pn = getUserPhoneNumber(username)
+        return render_template('2fa.html',digit1=int((code/10)%10),digit2=(code%10),phone_number=pn,timeout=10)
     else:
         return render_template('index.html') #could also change to show error, but doesn't matter for our PoC, since we don't hold actual users DB

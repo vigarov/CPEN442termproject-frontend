@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/2fa.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CashBank | Authenticate</title>
 </head>
 <body>
-    {{numbers}}
+    <div id="2fa_rect" class="rectangle">
+        <div id="content_2fa">
+            <div id="text_cont">
+                <span class="text" id="confirmDigitsText">You will shortly receive a call on {{phone_number}}.</span>
+                <span class="text" id="pleaseInput"> Please input the following digits: </span>
+            </div>
+            <div id="digits">
+                <div class="circle" id="d1">{{digit1}}</div>
+                <div class="circle" id="d2">{{digit2}}</div>
+            </div>
+            <span class="text" id="timeout">This code will expire at {{timeout}}</span>
+        </div>
+    </div>
 </body>
 </html>
