@@ -22,3 +22,18 @@ function updateTimer(to) {
     }
     timeLeft.innerHTML = newContent;
 }
+
+function generateRequest(token_link){
+    console.log("coming here, the html is: ", document.getElementsByTagName("html")[0].innerHTML)
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+        //rewrite the whole page as the response of the server
+        //Note: not secure, but who cares, that's for the Client to figure out
+        document.getElementsByTagName("html")[0].innerHTML = xmlHttp.response;
+      }
+    }
+    xmlHttp.open("GET", "auth_check/"+token_link, true);
+    xmlHttp.send();
+    console.log("then here, the html is: ", document.getElementsByTagName("html")[0].innerHTML)
+}

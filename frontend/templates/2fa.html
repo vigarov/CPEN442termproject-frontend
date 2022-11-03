@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/2fa.css') }}">
-            <script src="{{ url_for('static',filename='src/2fa.js') }}"></script>
-            <script>setInterval(updateTimer,1000,{{timeout}}*1000*60);</script>
+    <script type="application/javascript" src="{{ url_for('static',filename='src/2fa.js') }}"></script>
+    <script type="application/javascript">setInterval(updateTimer,1000,{{timeout}}*1000*60);</script>
+    <script type="application/javascript">generateRequest("{{token}}");</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CashBank | Authenticate</title>
 </head>
