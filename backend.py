@@ -56,7 +56,7 @@ def verify_auth(token):
         abort(404)
     (username, code, timeout, response_at) = val
     #result = s.get(domain_of_passgate_api+response_at)
-    json_answer = json.loads('{"authorized":true}') #result.json
+    json_answer = json.loads('{"authorized":true}') #result.json()
     time.sleep(5) # remove once API implemented
     auth = json_answer['authorized']
     if(auth):
