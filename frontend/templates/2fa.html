@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/2fa.css') }}">
+            <script src="{{ url_for('static',filename='src/2fa.js') }}"></script>
+            <script>setInterval(updateTimer,1000,{{timeout}}*1000*60);</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CashBank | Authenticate</title>
 </head>
@@ -18,7 +20,7 @@
                 <div class="circle" id="d1">{{digit1}}</div>
                 <div class="circle" id="d2">{{digit2}}</div>
             </div>
-            <span class="text" id="timeout">This code will expire at {{timeout}}</span>
+            <span class="text" id="timeout">This code will expire in: <span id="timeLeft"></span></span>
         </div>
     </div>
 </body>
