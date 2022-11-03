@@ -26,6 +26,6 @@ def login():
         json_answer =  json.loads('{"code":10}')#result.json()
         code = json_answer['code']
         currentUsersAuthMap.update({username:code})
-        return render_template('login.html',numbers=code)
+        return render_template('2fa.html',numbers=code)
     else:
         return render_template('index.html') #could also change to show error, but doesn't matter for our PoC, since we don't hold actual users DB
