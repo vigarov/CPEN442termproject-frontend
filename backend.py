@@ -36,9 +36,9 @@ def login():
     if(authorize(username,request.form['password'])):
         pn = getUserPhoneNumber(username)
         #result = s.get(domain_of_passgate_api+passgate_api_reqcode_url, params={'username':username,'phone'=pn})
-        json_answer = json.loads('{"code":10,"timeout":0.2,"response_at":"abcd"}')#result.json()
+        json_answer = json.loads('{"code":10,"timeout":60,"response_at":"abcd"}')#result.json()
         code = int(json_answer['code'])
-        timeout = float(json_answer['timeout'])
+        timeout = float(json_answer['timeout']) # in seconds
         response_at = str(json_answer['response_at'])
         generatedToken = str(secrets.token_urlsafe(32))
         tokenDataMap.update({generatedToken:(username,code,timeout,response_at)})
@@ -57,7 +57,7 @@ def verify_auth(token):
     (username, code, timeout, response_at) = val
     #result = s.get(domain_of_passgate_api+response_at)
     json_answer = json.loads('{"authorized":true}') #result.json()
-    time.sleep(5) # remove once API implemented
+    time.sleep(20) # remove once API implemented
     auth = json_answer['authorized']
     if(auth):
         #success, continue with authentication

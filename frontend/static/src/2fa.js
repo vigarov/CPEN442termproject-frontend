@@ -14,9 +14,9 @@ function msToTime(duration) {
 function updateTimer(to) {
     let timeLeft = document.getElementById("timeLeft");
     let newContent = "";
-    if(initialNum == 0) newContent = "Expired! Please login again through the homepage...";
+    if(initialNum === 0) newContent = "Expired! Please login again through the homepage...";
     else{
-        if(initialNum == -1) initialNum = to
+        if(initialNum === -1) initialNum = to
         else initialNum-=1000;
         newContent = msToTime(initialNum);
     }
