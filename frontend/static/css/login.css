@@ -104,11 +104,11 @@ button{
 */
 
 .toggle, .toggle-label-span{
-  color: #155FFF;
+  color: #772d33;
 }
 
 .toggle{
-  background: transparent;
+  background: rgba(255,255,255,0.07);
   border-radius: 30px;
   overflow: hidden;
   width: 240px;
@@ -117,6 +117,7 @@ button{
   letter-spacing: 1px;
   position: relative;
   padding-right: 120px;
+  margin-top: 25px;
 }
 
 .toggle:before{
@@ -131,7 +132,6 @@ button{
     justify-content: center;
     z-index: 3;
     pointer-events: none;
-    padding: 30px 0 0;
 }
 
 .toggle-checkbox{
@@ -157,6 +157,10 @@ button{
       display: block;
       user-select: none;
       pointer-events: none;
+}
+
+.toggle-label{
+    margin:0;
 }
 
 .toggle-label:before{
