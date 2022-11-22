@@ -21,7 +21,14 @@
         <input type="text" placeholder="Email or Username" required name="username">
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" required name="password">
+        <input type="password" placeholder="Password" required name="password" style="margin-bottom: 20px;">
+
+        <!-- Toggle adapted from https://codepen.io/Mr_Rahul_Tiwari/pen/ZEWMZNV -->
+        <span>2FA method</span>
+        <div class="toggle">
+            <input class="toggle-checkbox" type="checkbox" name="SMS"></input>
+            <label class="toggle-label" for="SMS"><span class="toggle-label-span">Call</span></label>
+          </div>
 
         <button>Log In</button>
     </form>

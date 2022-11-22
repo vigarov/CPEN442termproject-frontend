@@ -10,6 +10,7 @@ app = Flask(__name__,template_folder='./frontend/templates',static_folder='./fro
 #ngrok http https://localhost:5000
 domain_of_passgate_api = "https://ac33-128-189-144-134.ngrok.io"+'/'
 passgate_api_reqcode_url = "requestcode"
+passgate_api_reqsms = "requestsms"
 
 passgate_api_authtoken= "5iv3TYphzQu-ZEoWgpMaGp7RRHXeEWsQzc7A9h2RKL4"
 auth_header = {'Authorization' : 'Bearer '+passgate_api_authtoken}
@@ -35,17 +36,23 @@ def login():
     if(authorize(username,str(request.form['password']))):
         pn = str(getUserPhoneNumber(username))
         requestedTimeout = 50
-        payload = {'username':username,'phone':pn,'to':str(requestedTimeout)}
-        result = requests.get(domain_of_passgate_api+passgate_api_reqcode_url,params=payload,headers=auth_header)
+        requestSMS = 'SMS' in request.form.keys() and str(request.form['SMS']) == 'on'
+        if not requestSMS:
+            payload = {'phone':pn,'to':str(requestedTimeout)}
+            result = requests.get(domain_of_passgate_api+passgate_api_reqcode_url,params=payload,headers=auth_header)
 
-        json_answer = result.json()
-        code = int(json_answer['code'])
-        timeout = float(json_answer['timeout']) # in seconds
-        response_at = str(json_answer['response_at'])
-        generatedToken = str(secrets.token_urlsafe(32))
-        tokenDataMap.update({generatedToken:(username,code,timeout,response_at)})
-        ret = render_template('2fa.html',digit1=int((code/10)%10),digit2=(code%10),phone_number=pn,timeout=timeout,token=generatedToken)
-        return ret
+            json_answer = result.json()
+            code = int(json_answer['code'])
+            timeout = float(json_answer['timeout']) # in seconds
+            response_at = str(json_answer['response_at'])
+            generatedToken = str(secrets.token_urlsafe(32))
+            tokenDataMap.update({generatedToken:(username,code,timeout,response_at)})
+            ret = render_template('2fa.html',digit1=int((code/10)%10),digit2=(code%10),phone_number=pn,timeout=timeout,token=generatedToken)
+            return ret
+        else:
+            payload = {'phone':pn}
+            result = requests.get(domain_of_passgate_api+passgate_api_reqsms,params=payload,headers=auth_header)
+            return render_template('SMS.html',response_at='auth/'+str(result.json()['token'])+'/SMS')
     else:
         return render_template('index.html') #could also change to show error, but doesn't matter for our PoC, since we don't hold actual users DB
 
@@ -69,6 +76,19 @@ def verify_auth(token):
         #failed auth
         # TODO: decide if we directly remove token from map - depending if that's what our API will do
         return render_template('success.html',success='false')
+
+@app.route('/verify_code', methods=['POST'])
+def check_code():
+    input_code = request.form['code']  # crashes if 'code' not present
+    response_at = request.form['response_at']
+    result = requests.get(domain_of_passgate_api+response_at+'?code='+str(input_code),headers=auth_header)
+    json_answer = result.json()
+    auth = json_answer['authorized']
+    if auth:
+        return render_template('success.html', success='true')
+    else:
+        # failed auth
+        return render_template('success.html', success='false')
 
 
 if __name__ == '__main__':

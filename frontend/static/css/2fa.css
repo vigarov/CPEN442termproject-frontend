@@ -46,7 +46,7 @@
     padding: 3%;
 }
 
-#content_2fa{
+#content_2fa, #content_2fa > form{
     background: linear-gradient(to top,#202020, #262222);
     border-radius: 10px;
     width: 100%;

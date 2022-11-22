@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/2fa.css') }}">
+    <title>CashBank | Authenticate</title>
+</head>
+<body>
+    <div id="2fa_rect" class="rectangle">
+        <div id="content_2fa">
+            <form action="{{ url_for('check_code') }}" method="POST">
+                <h1>SMS verification</h1>
+                <input type="text" style="display: none" name="response_at" id="response_at">
+                <script>document.getElementById("response_at").value='{{ response_at|string }}';</script>
+                <div>
+                    <label for="code">Please input the 6-digit code sent by SMS:</label>
+                    <input type="text" inputmode="numeric" pattern="\d{6}" placeholder="e.g.:123456" id="code"
+                           name="code" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0,6)" required>
+                </div>
+                <button style="width: 80px; height:35px;margin-top: 10px; margin-bottom: 10px;align-self: center;">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
