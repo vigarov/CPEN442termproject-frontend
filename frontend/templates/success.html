@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sucess</title>
+    <title>{%- if success == 'true' -%}Success{%- else -%}Failure{%- endif -%}</title>
 </head>
 <body>
-    <h1 style="color: green;">Success!</h1>
-    <h2>Connection established.</h2>
+    <h1 style="color: {%- if success == 'true' -%}green{%- else -%}red{%- endif -%};">{%- if success == 'true' -%}Success{%- else -%}Failure{%- endif -%}!</h1>
+    <h2>Connection establishment {% if success == 'true' -%}successful{%- else -%}failed! You've inputted the wrong code{%- endif -%}.</h2>
 </body>
 </html>

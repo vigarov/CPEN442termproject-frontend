@@ -11,16 +11,18 @@ function msToTime(duration) {
   }
 
 //Called every 1000 ms; to in ms
-function updateTimer(to) {
+async function updateTimer(to) {
     let timeLeft = document.getElementById("timeLeft");
-    let newContent = "";
-    if(initialNum === 0) newContent = "Expired! Please login again through the homepage...";
-    else{
-        if(initialNum === -1) initialNum = to
-        else initialNum-=1000;
-        newContent = msToTime(initialNum);
+    if(timeLeft !== undefined) {
+        let newContent = "";
+        if (initialNum === 0) newContent = "Expired! Please login again through the homepage...";
+        else {
+            if (initialNum === -1) initialNum = to
+            else initialNum -= 1000;
+            newContent = msToTime(initialNum);
+        }
+        timeLeft.innerHTML = newContent;
     }
-    timeLeft.innerHTML = newContent;
 }
 
 function generateRequest(token_link){
@@ -28,6 +30,7 @@ function generateRequest(token_link){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
       if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+        console.log("Got answer " + new Date().toLocaleTimeString());
         //rewrite the whole page as the response of the server
         //Note: not secure, but who cares, that's for the Client to figure out
         document.getElementsByTagName("html")[0].innerHTML = xmlHttp.response;

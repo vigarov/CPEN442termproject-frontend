@@ -7,15 +7,14 @@ import time
 
 app = Flask(__name__,template_folder='./frontend/templates',static_folder='./frontend/static')
 
-domain_of_passgate_api = "localhost:1234/"
+#ngrok http https://localhost:5000
+domain_of_passgate_api = "https://ac33-128-189-144-134.ngrok.io"+'/'
 passgate_api_reqcode_url = "requestcode"
 
-passgate_api_authtoken= "authtoken1234"
+passgate_api_authtoken= "5iv3TYphzQu-ZEoWgpMaGp7RRHXeEWsQzc7A9h2RKL4"
 auth_header = {'Authorization' : 'Bearer '+passgate_api_authtoken}
-s = requests.Session()
-s.headers.update(auth_header)
 
-CST_userPhoneNumber = "+15875906624"
+CST_userPhoneNumber = "+33768807740"
 
 tokenDataMap = {}
 
@@ -32,11 +31,14 @@ def homepage_login():
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form['username']
-    if(authorize(username,request.form['password'])):
-        pn = getUserPhoneNumber(username)
-        #result = s.get(domain_of_passgate_api+passgate_api_reqcode_url, params={'username':username,'phone'=pn})
-        json_answer = json.loads('{"code":10,"timeout":60,"response_at":"abcd"}')#result.json()
+    username = str(request.form['username'])
+    if(authorize(username,str(request.form['password']))):
+        pn = str(getUserPhoneNumber(username))
+        requestedTimeout = 50
+        payload = {'username':username,'phone':pn,'to':str(requestedTimeout)}
+        result = requests.get(domain_of_passgate_api+passgate_api_reqcode_url,params=payload,headers=auth_header)
+
+        json_answer = result.json()
         code = int(json_answer['code'])
         timeout = float(json_answer['timeout']) # in seconds
         response_at = str(json_answer['response_at'])
@@ -55,16 +57,19 @@ def verify_auth(token):
         # return error page
         abort(404)
     (username, code, timeout, response_at) = val
-    #result = s.get(domain_of_passgate_api+response_at)
-    json_answer = json.loads('{"authorized":true}') #result.json()
-    time.sleep(20) # remove once API implemented
+    result = requests.get(domain_of_passgate_api+response_at,headers=auth_header)
+    json_answer = result.json()#json.loads('{"authorized":true}')
     auth = json_answer['authorized']
     if(auth):
         #success, continue with authentication
         # remove token from map
         del tokenDataMap[token]
-        return render_template('success.html')
+        return render_template('success.html',success='true')
     else:
         #failed auth
         # TODO: decide if we directly remove token from map - depending if that's what our API will do
-        abort(403)
+        return render_template('success.html',success='false')
+
+
+if __name__ == '__main__':
+    app.run(threaded=True, port=5001)
