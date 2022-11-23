@@ -19,8 +19,11 @@
                     <input type="text" inputmode="numeric" pattern="\d{6}" placeholder="e.g.:123456" id="code"
                            name="code" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0,6)" required>
                 </div>
+                <input type="text" name="token" style="display: none;" id="token_unused_input">
+                <script>document.getElementById('token_unused_input').value = {{ token }};</script>
                 <button style="width: 80px; height:35px;margin-top: 10px; margin-bottom: 10px;align-self: center;">Submit</button>
             </form>
+            <a href="{{ url_for('cancel_req') }}?token={{ token }}"><button>Cancel!</button></a>
         </div>
     </div>
 </body>

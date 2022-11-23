@@ -21,6 +21,7 @@
                 <div class="circle" id="d2">{{digit2}}</div>
             </div>
             <span class="text" id="timeout">This code will expire in: <span id="timeLeft"></span></span>
+            <a href="{{ url_for('cancel_req') }}?token={{ token }}"><button>Cancel!</button></a>
         </div>
     </div>
 </body>
