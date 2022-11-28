@@ -4,13 +4,13 @@ import secrets
 from flask import Flask, render_template, request, abort, redirect, url_for
 import requests
 from datetime import datetime
-from Crypto.Hash import SHA256
+from Cryptodome.Hash import SHA256
 import os
 
 app = Flask(__name__, template_folder='./frontend/templates', static_folder='./frontend/static')
 
 # ngrok http https://localhost:5002
-domain_of_passgate_api = "https://e3dd-128-189-149-146.ngrok.io" + '/'
+domain_of_passgate_api = "https://68ef-176-100-43-178.ngrok.io" + '/'
 passgate_api_reqcode_url = "requestcode"
 passgate_api_reqsms = "requestsms"
 
@@ -45,8 +45,8 @@ def login():
     log['hashed_phone'] = h.hexdigest()
     if authorize(pn, str(request.form['password'])):
         requestedTimeout = 50
-        requestSMS = 'SMS' in request.form.keys() and str(request.form['SMS']) == 'on'
-        if not requestSMS:
+        requestRecieve = 'Receive' in request.form.keys() and str(request.form['Receive']) == 'on'
+        if not requestRecieve:
             log['call'] = 'true'
             payload = {'phone': pn, 'to': str(requestedTimeout)}
             log['sent_passgate_info_request'] = get_time()

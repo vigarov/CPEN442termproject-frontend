@@ -39,6 +39,19 @@ body{
     right: -30px;
     bottom: -80px;
 }
+.info{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    width: 20%;
+    margin-top: 25%;
+    transform: translate(50%,50%);
+}
+p{
+    padding-bottom: 20px;
+}
 form{
     height: 540px;
     width: 400px;
@@ -121,7 +134,7 @@ button{
 }
 
 .toggle:before{
-    content: "SMS";
+    content: "Receive";
     position: absolute;
     top: 0;
     bottom: 0;
