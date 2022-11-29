@@ -9,6 +9,7 @@
 <body>
     <h1 style="color: {%- if success == 'true' -%}green{%- else -%}red{%- endif -%};">{%- if success == 'true' -%}Success{%- else -%}Failure{%- endif -%}!</h1>
     <h2>Connection establishment {% if success == 'true' -%}successful{%- else -%}failed! You've inputted the wrong code{%- endif -%}.</h2>
+    <div style="display: flex;flex-direction: row; margin-bottom: 20px;"><h2 style="margin: 0;">Total time: </h2><span>{{ tt |string }}</span></div>
     <a href="{{ url_for('homepage_login') }}"><button>Return to homepage</button></a>
 </body>
 </html>
