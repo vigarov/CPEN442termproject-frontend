@@ -10,7 +10,7 @@ import os
 app = Flask(__name__, template_folder='./frontend/templates', static_folder='./frontend/static')
 
 # ngrok http https://localhost:5002
-domain_of_passgate_api = "https://68ef-176-100-43-178.ngrok.io" + '/'
+domain_of_passgate_api = "https://cybersecurity-sevice.herokuapp.com" + '/'
 passgate_api_reqcode_url = "requestcode"
 passgate_api_reqsms = "requestsms"
 
