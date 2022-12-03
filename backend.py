@@ -10,7 +10,7 @@ import os
 app = Flask(__name__, template_folder='./frontend/templates', static_folder='./frontend/static')
 
 # ngrok http https://localhost:5002
-domain_of_passgate_api = "https://af67-2001-569-79ed-f100-88b7-5f8b-c54f-6e82.ngrok.io" + '/'
+domain_of_passgate_api = "https://168a-2001-569-79ed-f100-88b7-5f8b-c54f-6e82.ngrok.io" + '/'
 passgate_api_reqcode_url = "requestcode"
 passgate_api_reqsms = "requestsms"
 
@@ -162,4 +162,4 @@ def cancel_req():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=5001)
+    app.run(threaded=True)
