@@ -154,6 +154,7 @@ def check_code():
 @app.route('/cancel')
 def cancel_req():
     value = tokenDataMap[request.form['token']]
+    print("Cancelled, token value: "+value)
     assert value is not None
     (a, b, c, log) = value
     log['CANCEL_END'] = get_time()
