@@ -15,9 +15,9 @@
                 <input type="text" style="display: none" name="response_at" id="response_at">
                 <script>document.getElementById("response_at").value='{{ response_at|string }}';</script>
                 <div>
-                    <label for="code" style="display: block;text-align: center; margin-bottom: 20px">Please input the 2-digit code received over the phone:</label>
-                    <input type="text" style="display: block;width: 15%;height: 8%;min-width: 100px;margin: auto;"inputmode="numeric" pattern="\d{2}" placeholder="e.g.:12" id="code"
-                           name="code" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0,2)" required>
+                    <label for="code" style="display: block;text-align: center; margin-bottom: 20px">Please input the 4-digit code received over the phone:</label>
+                    <input type="text" style="display: block;width: 15%;height: 8%;min-width: 100px;margin: auto;"inputmode="numeric" pattern="\d{4}" placeholder="e.g.:1234" id="code"
+                           name="code" oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0,4)" required>
                 </div>
                 <input type="text" name="token" style="display: none;" id="token_unused_input">
                 <script>document.getElementById('token_unused_input').value = {{ token }};</script>
