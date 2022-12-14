@@ -17,8 +17,6 @@ passgate_api_reqsms = "requestsms"
 passgate_api_authtoken = "5iv3TYphzQu-ZEoWgpMaGp7RRHXeEWsQzc7A9h2RKL4"
 auth_header = {'Authorization': 'Bearer ' + passgate_api_authtoken}
 
-CST_userPhoneNumber = "+33768807740"
-
 tokenDataMap = {}
 
 
